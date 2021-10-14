@@ -1,0 +1,83 @@
+  .nav-link { 
+    padding-left: 80px;
+    color: black;
+    text-decoration: none;
+  }
+
+  .navbar {
+    padding-left: 100px;
+    padding: 10px;
+    background-color:rgb(203, 219, 247);
+  }
+  
+  .delete-button {
+    cursor: pointer;
+    color: crimson;
+  }
+
+  .todo-form-desc {
+      height: 200px;
+  }
+  .todo-form-cate {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+  }
+  .todo-form-cont {
+    padding-top: 15px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+  }
+
+  .todo-name {
+    display:flex;
+    float:left;
+    flex-direction: column;
+    width: 90px;
+    padding-top: 15px;
+  }
+
+  .item-height {
+    height:40px;
+  }
+
+  .todo-row {
+    display: flex;
+    flex-direction: row;
+    margin: 4px auto;
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    width: 30%;
+    text-align: center;
+  }
+  
+  .todo-column {
+    display:flex;
+    flex-direction: column-reverse;
+    color: rgb(0, 0, 0);
+    padding-right:100px;
+    padding-left:200px;
+    border:aqua;
+   
+  }
+.space {
+  padding-top:10px;
+}
+  .delete-selected {
+    position:relative;
+    margin-left: 200px;
+    float:top;
+    background-color: rgb(148, 221, 255);
+  }
+
+  th {
+    background-color: rgb(248, 244, 203);
+  }
+  
+  tr {
+    background-color: rgb(255, 254, 254);
+  }
+
+  
+
+ 
