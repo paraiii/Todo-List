@@ -34,31 +34,29 @@ function Form(props) {
     // };
 
     const value = useContext(TodoContext);
-    const [inputCont, setInputCont] = useState(['']); 
-    const handleSubmit = e => {
-        e.preventDefault();
-    };
+
     return (
         <div className='todo-form'>
-            <form className='todo-form' onSubmit={handleSubmit}>
-                {/* <div className='todo-name'>
-                    <div className='item-height'>
-                        <text>Description:</text>
-                        <Link to="/contentPage" className="nav-link">todo</Link>
-                    </div>
-
-                    <div className='item-height'>
-                        <text>Category:</text>
-                    </div>
-
-                    <div className='item-height'>
-                        <text>Content:</text>
-                    </div>
+            <form className='todo-form'>
+            {/* <form className='todo-form' onSubmit={handleSubmit}>
+            <div className='todo-name'>
+                <div className='item-height'>
+                    <text>Description:</text>
+                    <Link to="/contentPage" className="nav-link">todo</Link>
+                </div>
 
                 <div className='item-height'>
-                    <button className='Submit'>Submit</button>
+                    <text>Category:</text>
                 </div>
-            </div> */}
+
+                <div className='item-height'>
+                    <text>Content:</text>
+                </div>
+
+            <div className='item-height'>
+                <button className='Submit'>Submit</button>
+            </div>
+        </div> */}
             <InputTodo />
             {/* <div className='todo-name'>
                 <div className='item-height'>
