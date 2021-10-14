@@ -6,8 +6,8 @@ import TodoList from './TodoList';
 function TodoPage() {
     return (
         <div>
-            {/* <List /> */}
-            <TodoList />
+            <List />
+            {/* <TodoList /> */}
         </div>
     );
 }

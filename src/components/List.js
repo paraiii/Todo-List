@@ -16,18 +16,18 @@ function List() {
         setTodos(newTodos);
     };
 
-    // const removeTodo = id => {
-    //     const removeArr = [...todos].filter(todo => todo.id !== id);
-    //     setTodos(removeArr);
-    // };
+    const removeTodo = id => {
+        const removeArr = [...todos].filter(todo => todo.id !== id);
+        setTodos(removeArr);
+    };
 
     return (
         <div>
-            {/* <InputTodo onSubmit={value.addTodo} /> */}
+            {/* <InputTodo value={value.actions.add} /> */}
             <Form onSubmit={addTodo} /> 
             <Delete />  
             <div  className='todo-column'>
-            <Todo todos={todos} removeTodo={value.remove}/>
+            <Todo todos={todos} removeTodo={removeTodo}/>
             </div>
         </div> 
     );

@@ -50,7 +50,7 @@ function InputTodo() {
                         />
                     </div>
 
-                    <div className='item-height'>
+                    {/* <div className='item-height'>
                         <select
                             type='text'
                             value={inputCate}
@@ -71,13 +71,13 @@ function InputTodo() {
                             className='todo-input'
                             onChange={(e) => setInputCont(e.target.value)}
                         />
-                    </div>
+                    </div> */}
                     <div
                         onClick={() => {
                             value.actions.add(todo);
                             setTodo("");
                         }}>
-                            Submit
+                            
                     </div> 
                 </div>
             </form>

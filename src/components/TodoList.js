@@ -9,7 +9,9 @@ function TodoList() {
     return (
         <div>
            {value.todoList.map(item => (
-               <Todo todos={value.actions.add} removeTodo={value.actions.removeTodo}/>
+               <Todo 
+                    todos={value.actions.add}         
+                    removeTodo={value.actions.removeTodo}/>
            ))} 
         </div>
     )

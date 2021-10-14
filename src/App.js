@@ -5,9 +5,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from './components/NavBar';
 import ContentPage from './components/Content/ContentPage';
 import About from './components/Content/About';
+import TodoContext from './components/Hooks/TodoContext';
 
 function App() {
   return (
+    <TodoContext>
     <div className="todo-app">
       <NavBar />
       <Route exact path="/todo" component={TodoPage} />
@@ -15,6 +17,7 @@ function App() {
       <Route exact path="/" component={TodoPage} />
       <Route path="/Todo/:todoId" component={ContentPage} />
     </div>
+    </TodoContext>
   );
 }
 
