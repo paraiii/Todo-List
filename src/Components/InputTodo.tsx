@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ItodoList } from "./Interfaces";
+import { ItodoList } from "./types";
 
 
 interface Props {
@@ -11,16 +11,16 @@ export const InputTodo = ({ inputDesc, removeTodo}: Props) => {
     return (
         <div>
           <div>
-            <span>{inputDesc.todoName}</span>
+            <span>{inputDesc.desc}</span>
             <span>{inputDesc.category}</span>
             <span>{inputDesc.content}</span>
           </div>
           <button
             onClick={() => {
-              removeTodo(inputDesc.todoName);
+              removeTodo(inputDesc.desc);
             }}
           >
-            X
+            Delete
           </button>
         </div>
     );

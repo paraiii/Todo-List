@@ -1,58 +1,47 @@
 import React, { ChangeEvent, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
+import { TodoContext } from './Context/TodoContext';
 import { InputTodo } from './InputTodo';
-import { ItodoList } from './Interfaces';
 import { Todo } from './Todo';
 import { TodoList } from './TodoList';
+import { ItodoList } from './types';
 
 export const Form = () => {
 
-const [inputDesc, setInputDesc] = useState<string>('')
-const [inputCate, setInputCate] = useState<string>('')
-const [inputCont, setInputCont] = useState<string>('')
-const [todoList, setTodoList] = useState<ItodoList[]>([]);
+    // const [inputDesc, setInputDesc] = useState<string>('')
+    // const [inputCate, setInputCate] = useState<string>('')
+    // const [inputCont, setInputCont] = useState<string>('')
+    // const [todoList, setTodoList] = useState<ItodoList[]>([]);
 
 
-const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputDesc(event.target.value)
-};
-const handleChangeCate= (event: ChangeEvent<HTMLInputElement>) => {
-    setInputCate(event.target.value)
-};
-const handleChangeCont = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputCont(event.target.value)
-};
+    // const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>): void => {
+    //     setInputDesc(event.target.value)
+    // };
+    // const handleChangeCate= (event: ChangeEvent<HTMLInputElement>): void => {
+    //     setInputCate(event.target.value)
+    // };
+    // const handleChangeCont = (event: ChangeEvent<HTMLInputElement>): void => {
+    //     setInputCont(event.target.value)
+    // };
+const {values, addTodo, removeTodo } = useContext(TodoContext)
 
-const addTodo = (): void => {
-    const newTodo = { todoName: inputDesc, category: inputCate, content: inputCont};
-    setTodoList([...todoList, newTodo]);
-    setInputDesc("");
-    setInputCate("");
-    setInputCont("");
-};
+    // const addTodo = (): void => {
 
-const removeTodo = (TodoNameDelete: string): void => {
-    setTodoList (
-        todoList.filter((inputDesc)=> {
-            return inputDesc.todoName != TodoNameDelete;
-        })
-    );
-};
+    //     const newTodo = { desc: inputDesc, category: inputCate, content: inputCont};
+    //     setTodoList([...todoList, newTodo]);
+    //     setInputDesc("");
+    //     setInputCate("");
+    //     setInputCont("");
+    // };
 
-// const handleSubmit = event => {
-//     e.preventDefault();
-
-//     props.onSubmit({
-//         id:Math.floor(Math.random() * 1000),  //给todolist的事随机分配一个0-1000的数做id
-//         desc: inputDesc,
-//         category: inputCate,
-//         content: inputCont
-//     });
-//     setInputDesc('');
-//     setInputCate('');
-//     setInputCont('');
-// };
+    // const removeTodo = (descDelete: string): void => {
+    //     setTodoList (
+    //         todoList.filter((inputDesc)=> {
+    //             return inputDesc.desc != descDelete;
+    //         })
+    //     );
+    // };
 
 
 return (
@@ -63,19 +52,18 @@ return (
                     <input 
                         type='text'
                         name='text'
-                        value={inputDesc}
+                        value={values.inputDesc}
                         className='todo-input'
-                        onChange={handleChangeDesc}
+                        onChange={values.handleChangeDesc}
                     />
             </div>
             <div>
                 <text>Category:</text>
                 <select
-                    // type='text'
-                    value={inputCate}
+                    value={values.inputCate}
                     name='category'
                     className='todo-input'
-                    // onChange={handleChangeCate}
+                    onChange={values.handleChangeCate}
                 >
                     <option value=""></option>
                     <option value="CSS">CSS</option>
@@ -85,11 +73,10 @@ return (
             <div>
                 <text>Content:</text>
                 <textarea 
-                    // type='text'
-                    value={inputCont}
+                    value={values.inputCont}
                     name='category'
                     className='todo-input'
-                    // onChange={handleChangeCont}
+                    onChange={values.handleChangeCont}
                 />
             </div>
             <button onClick={addTodo}>Submit</button>

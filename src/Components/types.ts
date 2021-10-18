@@ -1,23 +1,24 @@
 export interface TodoItem {
-    todoName: string;
-    category: any;
-    content: string;
+    id: string;
+    desc: InputDescription;
+    category: InputCategory;
+    content: InputContent;
+    addTodo: string;
+    removeTodo: string;
 }
 
 export interface InputDescription {
-    description: string;
 }
 
 export interface InputCategory {
-
 }
 
 export interface InputContent {
-
+    content: string;
 }
 
 export interface ItodoList {
-    todoName: string;
+    desc: string;
     category: any;
     content: string;
 }
