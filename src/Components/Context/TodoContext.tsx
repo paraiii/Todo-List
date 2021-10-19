@@ -1,71 +1,61 @@
 import { ChangeEvent, createContext, useState } from "react";
 import styled from "styled-components";
-import { InputContent, InputDescription, InputCategory, TodoItem, ItodoList } from "../types";
+import { TodoItem } from "../types";
 
 
 interface TodoContextProp {
     children: any;
+    value: TodoContextValue;
 }
 
 export interface TodoContextValue {
     todoList: TodoItem[];
-    id: number,
-    desc: InputDescription,
-    category: InputCategory;
-    content: string;
     addTodo: (todo: TodoItem) => void;
-    removeTodo: (id: number) => void;
+    removeTodo: (id: string) => void;
 }
 export const initialValue: TodoContextValue = {
     todoList: [],
-    id: 1,
-    desc: '',
-    category: '',
-    content: '',
     addTodo: (todo:TodoItem)=>{},
-    removeTodo: (id:number) => {},
+    removeTodo: (id: string) => {},
 }
 
 export const TodoContext = createContext(initialValue);
 
 export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
-    const [inputDesc, setInputDesc] = useState<string>('')
-    const [inputCate, setInputCate] = useState<string>('')
-    const [inputCont, setInputCont] = useState<string>('')
-    const [todoList, setTodoList] = useState<ItodoList[]>([]);
+    // const [inputDesc, setInputDesc] = useState<string>('')
+    // const [inputCate, setInputCate] = useState<string>('')
+    // const [inputCont, setInputCont] = useState<string>('')
+    const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
 
-    const addTodo = (): void => {
+    const addTodo = (todo: TodoItem): void => {
 
-        const newTodo = { desc: inputDesc, category: inputCate, content: inputCont};
-        setTodoList([...todoList, newTodo]);
-        setInputDesc("");
-        setInputCate("");
-        setInputCont("");
+        setTodoList([...todoList, todo]);
+        
     };
 
-    const removeTodo = (TodoNameDelete: string): void => {
+    const removeTodo = (id: string): void => {
         setTodoList (
-            todoList.filter((inputDesc)=> {
-                return inputDesc.desc != TodoNameDelete;
+            todoList.filter((item)=> {
+                return item.id != id;
             })
         );
     };
 
-    const values = {
-        todoList: [],
-        id:Math.floor(Math.random() * 1000),  //给todolist的事随机分配一个0-1000的数做id
-        desc: inputDesc,
-        category: inputCate,
-        content: inputCont,
-        add: addTodo,
-        remove: removeTodo
+    const values: TodoContextValue = {
+        todoList: todoList,
+        // id:Math.floor(Math.random() * 1000),  //给todolist的事随机分配一个0-1000的数做id
+        // desc: inputDesc,
+        // category: inputCate,
+        // content: inputCont,
+        addTodo: addTodo,
+        removeTodo: removeTodo
     };
     
     return (
+        // <TodoContext.Provider value={values}>
         <TodoContext.Provider value={values}>
-        {/* <TodoContext.Provider value={{values, addTodo, removeTodo}}> */}
             {children}
         </TodoContext.Provider>
     );

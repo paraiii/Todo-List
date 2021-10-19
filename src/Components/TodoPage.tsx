@@ -7,7 +7,7 @@ export const TodoPage = () => {
         <div>
             <NavContainer>
                 <Form />
-                <TodoList />
+                {/* <TodoList /> */}
             </NavContainer>
         </div>
     )

@@ -8,7 +8,7 @@
 import { NavBar } from "./Components/Navbar";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { TodoPage } from "./Components/TodoPage";
-import { TodoContextProvider } from "./Components/Context/TodoContext";
+import { initialValue, TodoContextProvider } from "./Components/Context/TodoContext";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
     //     {/* <Route path="/Todo/:todoId" component={ContentPage} /> */}
     //   </div>
     // </TodoContext>
-    <TodoContextProvider >
+    <TodoContextProvider value={initialValue} >
       <div>
         <NavBar />
         <Route exact path="/todo" component={TodoPage} />

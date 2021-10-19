@@ -1,23 +1,23 @@
 import styled from "styled-components";
-import { ItodoList } from "./types";
+import { TodoItem } from "./types";
 
 
 interface Props {
-    inputDesc: ItodoList;
+    todoItem: TodoItem;
     removeTodo(TodoNameDelete: string): void;
 }
 
-export const InputTodo = ({ inputDesc, removeTodo}: Props) => {
+export const InputTodo = ({ todoItem, removeTodo}: Props) => {
     return (
         <div>
           <div>
-            <span>{inputDesc.desc}</span>
-            <span>{inputDesc.category}</span>
-            <span>{inputDesc.content}</span>
+            <span>{todoItem.desc}</span>
+            <span>{todoItem.category}</span>
+            <span>{todoItem.content}</span>
           </div>
           <button
             onClick={() => {
-              removeTodo(inputDesc.desc);
+              removeTodo(todoItem.id);
             }}
           >
             Delete

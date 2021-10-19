@@ -5,26 +5,36 @@ import { TodoContext } from './Context/TodoContext';
 import { InputTodo } from './InputTodo';
 import { Todo } from './Todo';
 import { TodoList } from './TodoList';
-import { ItodoList } from './types';
+import { TodoItem } from './types';
 
 export const Form = () => {
+    const { addTodo, removeTodo } = useContext(TodoContext)
+    const [inputDesc, setInputDesc] = useState<string>('')
+    const [inputCate, setInputCate] = useState<string>('')
+    const [inputCont, setInputCont] = useState<string>('')
+    const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
-    // const [inputDesc, setInputDesc] = useState<string>('')
-    // const [inputCate, setInputCate] = useState<string>('')
-    // const [inputCont, setInputCont] = useState<string>('')
-    // const [todoList, setTodoList] = useState<ItodoList[]>([]);
 
+    const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>): void => {
+        setInputDesc(event.target.value)
+    };
+    const handleChangeCate= (event: ChangeEvent<HTMLSelectElement>): void => {
+        setInputCate(event.target.value)
+    };
+    const handleChangeCont = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+        setInputCont(event.target.value)
+    };
 
-    // const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>): void => {
-    //     setInputDesc(event.target.value)
-    // };
-    // const handleChangeCate= (event: ChangeEvent<HTMLInputElement>): void => {
-    //     setInputCate(event.target.value)
-    // };
-    // const handleChangeCont = (event: ChangeEvent<HTMLInputElement>): void => {
-    //     setInputCont(event.target.value)
-    // };
-const {values, addTodo, removeTodo } = useContext(TodoContext)
+    const onClick = () => {
+        addTodo({
+            id: Date.now().toString(), //现在的时间戳
+            desc: inputDesc,
+            category: inputCate,
+            content: inputCont
+        })
+    }
+    // const value = useContext(TodoContext)
+
 
     // const addTodo = (): void => {
 
@@ -42,53 +52,51 @@ const {values, addTodo, removeTodo } = useContext(TodoContext)
     //         })
     //     );
     // };
-
-
-return (
-    <div>
-        <form> 
-            <div>
-                <text> Description: </text>
-                    <input 
-                        type='text'
-                        name='text'
-                        value={values.inputDesc}
+    return (
+        <div>
+            <form> 
+                <div>
+                    <text> Description: </text>
+                        <input 
+                            type='text'
+                            name='text'
+                            value={inputDesc}
+                            className='todo-input'
+                            onChange={handleChangeDesc}
+                        />
+                </div>
+                <div>
+                    <text>Category:</text>
+                    <select
+                        value={inputCate}
+                        name='category'
                         className='todo-input'
-                        onChange={values.handleChangeDesc}
+                        onChange={handleChangeCate}
+                    >
+                        <option value=""></option>
+                        <option value="CSS">CSS</option>
+                        <option value="JS">JS</option>
+                    </select>
+                </div>
+                <div>
+                    <text>Content:</text>
+                    <textarea 
+                        value={inputCont}
+                        name='category'
+                        className='todo-input'
+                        onChange={handleChangeCont}
                     />
-            </div>
-            <div>
-                <text>Category:</text>
-                <select
-                    value={values.inputCate}
-                    name='category'
-                    className='todo-input'
-                    onChange={values.handleChangeCate}
-                >
-                    <option value=""></option>
-                    <option value="CSS">CSS</option>
-                    <option value="JS">JS</option>
-                </select>
-            </div>
-            <div>
-                <text>Content:</text>
-                <textarea 
-                    value={values.inputCont}
-                    name='category'
-                    className='todo-input'
-                    onChange={values.handleChangeCont}
-                />
-            </div>
-            <button onClick={addTodo}>Submit</button>
-            <div>
-                {todoList.map((inputDesc: ItodoList, key: number) => {
-                    return <InputTodo key={key} inputDesc={inputDesc} removeTodo={removeTodo} />;
-                })}
-            </div>
-        </form>
-    </div>
-    
-);
+                </div>
+                <button onClick={onClick}>Submit</button>
+                <div>
+                    {todoList.map((todoItem: TodoItem) => {
+                        return <InputTodo key={todoItem.id} todoItem={todoItem} removeTodo={removeTodo} />;
+                    })}
+                </div>
+            </form>
+        </div>
+        
+    );
 }
 
 const NavContainer = styled.div`
