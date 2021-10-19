@@ -30,9 +30,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
 
 
     const addTodo = (todo: TodoItem): void => {
-
         setTodoList([...todoList, todo]);
-        
     };
 
     const removeTodo = (id: string): void => {

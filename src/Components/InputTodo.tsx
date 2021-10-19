@@ -10,18 +10,15 @@ interface Props {
 export const InputTodo = ({ todoItem, removeTodo}: Props) => {
     return (
         <div>
-          <div>
             <span>{todoItem.desc}</span>
             <span>{todoItem.category}</span>
             <span>{todoItem.content}</span>
-          </div>
-          <button
-            onClick={() => {
-              removeTodo(todoItem.id);
-            }}
-          >
-            Delete
-          </button>
+            <button onClick={() => {
+                removeTodo(todoItem.id);
+                }}
+            >
+                Delete
+            </button>
         </div>
     );
 };
@@ -29,4 +26,12 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
 
 const NavContainer = styled.div`
   
+`
+const TodoListContainer = styled.div`
+    display:flex;
+    flex-direction: column-reverse;
+    color: rgb(0, 0, 0);
+    padding-right:100px;
+    padding-left:200px;
+    border:aqua;
 `

@@ -8,11 +8,11 @@ import { TodoList } from './TodoList';
 import { TodoItem } from './types';
 
 export const Form = () => {
-    const { addTodo, removeTodo } = useContext(TodoContext)
+    const { todoList, addTodo, removeTodo } = useContext(TodoContext)
     const [inputDesc, setInputDesc] = useState<string>('')
     const [inputCate, setInputCate] = useState<string>('')
     const [inputCont, setInputCont] = useState<string>('')
-    const [todoList, setTodoList] = useState<TodoItem[]>([]);
+    // const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
 
     const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -25,7 +25,8 @@ export const Form = () => {
         setInputCont(event.target.value)
     };
 
-    const onClick = () => {
+    const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         addTodo({
             id: Date.now().toString(), //现在的时间戳
             desc: inputDesc,
@@ -54,7 +55,7 @@ export const Form = () => {
     // };
     return (
         <div>
-            <form> 
+            <FormContainer> 
                 <div>
                     <text> Description: </text>
                         <input 
@@ -88,12 +89,12 @@ export const Form = () => {
                     />
                 </div>
                 <button onClick={onClick}>Submit</button>
-                <div>
+                <TodoListContainer>
                     {todoList.map((todoItem: TodoItem) => {
                         return <InputTodo key={todoItem.id} todoItem={todoItem} removeTodo={removeTodo} />;
                     })}
-                </div>
-            </form>
+                </TodoListContainer>
+            </FormContainer>
         </div>
         
     );
@@ -101,4 +102,14 @@ export const Form = () => {
 
 const NavContainer = styled.div`
     
+`
+const FormContainer = styled.div`
+    display:flex;
+    float:left;
+    flex-direction: column;
+    width: 90px;
+    padding-top: 15px;  
+`
+const TodoListContainer = styled.div`
+   
 `
