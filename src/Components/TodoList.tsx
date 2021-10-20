@@ -1,50 +1,37 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import {Form} from "./Form";
 import {TodoContext} from './Context/TodoContext';
-import { Todo } from './Todo';
-import { Link } from "react-router-dom";
+import { TodoItem } from "./types";
+import { InputTodo } from "./InputTodo";
 
 export const TodoList = () => {
+    const { todoList, removeTodo } = useContext(TodoContext);
 
-    // const {values, addTodo, removeTodo } = useContext(TodoContext);
-
-    // return (
-    //     <table>
-    //         <thead>
-    //             <tr>
-    //                 <th>
-    //                     {<input 
-    //                         type="checkbox" 
-    //                         onChange={(e) =>{}} />}
-    //                 </th>
-    //                 <th>Description</th>
-    //                 <th>Category</th>
-    //                 <th>Operate</th>
-    //             </tr>
-    //         </thead>
-    //         <tbody>
-    //             <tr>
-    //                 <td>
-    //                     <input 
-    //                         type="checkbox">
-    //                     </input>
-    //                 </td>
-    //                 <td> 
-    //                     {/* <div onClick = {() => todo.id}> 
-    //                     {todo.category}</div> */}
-    //                 </td>
-    //                 <td>
-    //                     <text onClick={removeTodo}>
-    //                         Delete
-    //                     </text>
-    //                 </td>
-    //             </tr>
-    //         </tbody>
-    //     </table>
-    // )
+    return (
+        <ListTable>
+            <thead>
+                <tr>
+                    <HeaderItem><button>Delete Select</button></HeaderItem>
+                    <HeaderItem>Description</HeaderItem>
+                    <HeaderItem>Category</HeaderItem>
+                    <HeaderItem>Content</HeaderItem>
+                    <HeaderItem>Operate</HeaderItem>
+                </tr>
+            </thead>
+            <tbody>
+                {todoList.map((todoItem: TodoItem) => {
+                    return <InputTodo key={todoItem.id} todoItem={todoItem} removeTodo={removeTodo} />;
+                })}
+            </tbody>
+        </ListTable>
+    );
+    
 }
-// 34'36
-const NavContainer = styled.div`
-  
+
+
+const ListTable = styled.div`
+    padding: 10px;
+`
+const HeaderItem = styled.th`
+    padding: 10px;
 `

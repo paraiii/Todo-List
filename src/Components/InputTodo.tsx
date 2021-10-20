@@ -9,29 +9,26 @@ interface Props {
 
 export const InputTodo = ({ todoItem, removeTodo}: Props) => {
     return (
-        <div>
-            <span>{todoItem.desc}</span>
-            <span>{todoItem.category}</span>
-            <span>{todoItem.content}</span>
-            <button onClick={() => {
+        <tr>
+            <th>
+                {<input type="checkbox" 
+                // key={todo.id} onChange={(e) =>
+                //             {handleCheckbox(e, todo.id)}} 
+                />}
+            </th>
+            <th>{todoItem.desc}</th>
+            <th>{todoItem.category}</th>
+            <th>{todoItem.content}</th>
+            <DeleteButton onClick={() => {
                 removeTodo(todoItem.id);
-                }}
-            >
-                Delete
-            </button>
-        </div>
-    );
-};
+                }}>
+                    Delete
+            </DeleteButton>
+        </tr>
+)};
 
-
-const NavContainer = styled.div`
-  
-`
-const TodoListContainer = styled.div`
-    display:flex;
-    flex-direction: column-reverse;
-    color: rgb(0, 0, 0);
-    padding-right:100px;
-    padding-left:200px;
-    border:aqua;
+const DeleteButton = styled.a`
+    margin: 10px;
+    cursor: pointer;
+    color: crimson;
 `
