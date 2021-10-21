@@ -21,11 +21,11 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
                     checked={todoItem.checked}
                 />
             </th>
-            <th>
+            <td>
                 <a href= {`/about/${todoItem.content}`}>{todoItem.desc}</a>
-            </th>
-            <th>{todoItem.category}</th>
-            <th>{todoItem.content}</th>
+            </td>
+            <td>{todoItem.category}</td>
+            <td>{todoItem.content}</td>
             <DeleteButton onClick={() => {
                 removeTodo(todoItem.id);
             }}>
