@@ -3,6 +3,7 @@ export interface TodoItem {
     desc: string;
     category: string;
     content: string;
+    checked: any;
 }
 
 

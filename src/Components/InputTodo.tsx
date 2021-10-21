@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { TodoContext } from "./Context/TodoContext";
 import { TodoItem } from "./types";
 
 
@@ -8,30 +10,33 @@ interface Props {
 }
 
 export const InputTodo = ({ todoItem, removeTodo}: Props) => {
+    const { handleCheck } = useContext(TodoContext);
+
     return (
-        <div>
-            <span>{todoItem.desc}</span>
-            <span>{todoItem.category}</span>
-            <span>{todoItem.content}</span>
-            <button onClick={() => {
+        <tr>
+            <th>
+                <input
+                    onChange={() => handleCheck(todoItem.id, todoItem.checked)}
+                    type="checkbox"
+                    checked={todoItem.checked}
+                />
+            </th>
+            <th>
+                <a href= {todoItem.content}>{todoItem.desc}</a>
+            </th>
+            <th>{todoItem.category}</th>
+            <th>{todoItem.content}</th>
+            <DeleteButton onClick={() => {
                 removeTodo(todoItem.id);
-                }}
-            >
+            }}>
                 Delete
-            </button>
-        </div>
-    );
-};
+            </DeleteButton>
+        </tr>
+)};
 
+const DeleteButton = styled.a`
+    margin: 10px;
+    cursor: pointer;
+    color: crimson;
+`
 
-const NavContainer = styled.div`
-  
-`
-const TodoListContainer = styled.div`
-    display:flex;
-    flex-direction: column-reverse;
-    color: rgb(0, 0, 0);
-    padding-right:100px;
-    padding-left:200px;
-    border:aqua;
-`

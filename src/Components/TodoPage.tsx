@@ -5,14 +5,18 @@ import { TodoList } from "./TodoList";
 export const TodoPage = () => {
     return  (
         <div>
-            <NavContainer>
+            <TodoPageContainer>
                 <Form />
-                {/* <TodoList /> */}
-            </NavContainer>
+                <TodoList />
+            </TodoPageContainer>
         </div>
     )
 }
 
-const NavContainer = styled.div`
-  
+const TodoPageContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: Helvetica;
+    padding: 10px;
 `
