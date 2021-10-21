@@ -17,7 +17,7 @@ export const TodoList = () => {
                     </HeaderItem>
                     <HeaderItem>Description</HeaderItem>
                     <HeaderItem>Category</HeaderItem>
-                    <HeaderItem>Content</HeaderItem>
+                    {/* <HeaderItem>Content</HeaderItem> */}
                     <HeaderItem>Operate</HeaderItem>
                 </tr>
             </thead>
