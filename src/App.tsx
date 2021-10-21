@@ -2,6 +2,7 @@ import { NavBar } from "./Components/Navbar";
 import { Route } from "react-router-dom";
 import { TodoPage } from "./Components/TodoPage";
 import { initialValue, TodoContextProvider } from "./Components/Context/TodoContext";
+import { About } from "./Components/Content/About";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <NavBar />
         <Route exact path="/" component={TodoPage} />
         <Route exact path="/todo" component={TodoPage} />
+        <Route exact path="/about" component={About} />
       </div>
     </TodoContextProvider>
   );

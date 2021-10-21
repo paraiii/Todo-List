@@ -1,5 +1,4 @@
-import { ChangeEvent, createContext, useState } from "react";
-import styled from "styled-components";
+import { createContext, useCallback, useState } from "react";
 import { TodoItem } from "../types";
 
 
@@ -21,7 +20,6 @@ export const initialValue: TodoContextValue = {
     removeTodo: (id: string) => {},
     handleCheck: (id: string, checked: boolean) => {},
     handleDelete: () => {},
-
 }
 
 export const TodoContext = createContext(initialValue);
@@ -31,18 +29,19 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
 
-    const addTodo = (todo: TodoItem): void => {
+    const addTodo = useCallback ((todo: TodoItem): void => {
         setTodoList([...todoList, todo]);
-    };
+    }, [todoList]);
 
-    const removeTodo = (id: string): void => {
+    const removeTodo = useCallback ((id: string): void => {
         setTodoList (
             todoList.filter((item)=> {
                 return item.id !== id;
             })
         );
-    };
-    const handleCheck = (id:string, checked: boolean) => {
+    }, [todoList]);
+
+    const handleCheck = useCallback ((id:string, checked: boolean) => {
         const modifiedTodoList = todoList.map((todoItem) => {
           if (todoItem.id === id) {
             todoItem.checked = !todoItem.checked;
@@ -50,19 +49,12 @@ export const TodoContextProvider = (props: TodoContextProp) => {
           return todoItem;
         });
         setTodoList(modifiedTodoList);
-      };
+    }, [todoList]);
 
-    // const [checkArr, setCheckArr] = useState([]);
-
-    // const handleCheck = (e: ChangeEvent, id: string) => {
-    //     const checked = e.target.checked;
-    //     setCheckArr([ {id:id, checked:checked}, ...checkArr])
-    // }
-    
-      const handleDelete = () => {
+      const handleDelete = useCallback (() => {
         const filteredTodoList = todoList.filter((todoItem) => todoItem.checked === false);
         setTodoList(filteredTodoList);
-      };
+      }, [todoList]);
 
     const values: TodoContextValue = {
         todoList: todoList,
@@ -73,57 +65,9 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     };
     
     return (
-        // <TodoContext.Provider value={values}>
         <TodoContext.Provider value={values}>
             {children}
         </TodoContext.Provider>
     );
 }
 
-// interface TodoContextProp {
-//     children: any;
-//     value: TodoContextValue;
-// }
-
-// export interface TodoContextValue {
-//     todoList: TodoItem[];
-//     addTodo: (todo: TodoItem) => void;
-//     removeTodo: (id: string) => void;
-// }
-// export const initialValue: TodoContextValue = {
-//     todoList: [],
-//     addTodo: (todo:TodoItem)=>{},
-//     removeTodo: (id: string) => {},
-// }
-
-// export const TodoContext = createContext(initialValue);
-
-// export const TodoContextProvider = (props: TodoContextProp) => {
-//     const {children} = props;    
-//     const [todoList, setTodoList] = useState<TodoItem[]>([]);
-
-
-//     const addTodo = (todo: TodoItem): void => {
-//         setTodoList([...todoList, todo]);
-//     };
-
-//     const removeTodo = (id: string): void => {
-//         setTodoList (
-//             todoList.filter((item)=> {
-//                 return item.id != id;
-//             })
-//         );
-//     };
-
-//     const values: TodoContextValue = {
-//         todoList: todoList,
-//         addTodo: addTodo,
-//         removeTodo: removeTodo
-//     };
-    
-//     return (
-//         <TodoContext.Provider value={values}>
-//             {children}
-//         </TodoContext.Provider>
-//     );
-// }

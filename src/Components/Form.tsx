@@ -31,6 +31,10 @@ export const Form = () => {
     }, []);
    
     return (
+        <div>
+            <TodoListTitle>
+                <h1>Start Add Todo's</h1>
+            </TodoListTitle>
         <table>
             <thead>
                 <FormTr>
@@ -73,11 +77,11 @@ export const Form = () => {
                 </FormTr>
                 <tr>
                     <th></th>
-                    <ButtonTh><button onClick={onClick}>Submit</button></ButtonTh>
+                    <ButtonTh><AddButton onClick={onClick}>Add</AddButton></ButtonTh>
                 </tr>
             </thead>
         </table>
-        
+    </div>
     );
 }
 
@@ -89,6 +93,15 @@ const FormTh = styled.th`
 `
 const ButtonTh = styled.th`
     text-align: right;
+`
+const AddButton = styled.button`
+    background-color: orange;
+    color: white;
+    border-radius: 4px;
+`
+const TodoListTitle = styled.div`
+    text-align: center;
+    
 `
 
 

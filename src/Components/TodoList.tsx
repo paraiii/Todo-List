@@ -12,7 +12,9 @@ export const TodoList = () => {
         <ListTable>
             <thead>
                 <tr>
-                    <HeaderItem><button onClick={handleDelete}>Delete Select</button></HeaderItem>
+                    <HeaderItem>
+                        <button onClick={handleDelete}>Delete Select</button>
+                    </HeaderItem>
                     <HeaderItem>Description</HeaderItem>
                     <HeaderItem>Category</HeaderItem>
                     <HeaderItem>Content</HeaderItem>

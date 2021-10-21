@@ -6,9 +6,3 @@ export interface TodoItem {
     checked: any;
 }
 
-
-// export interface ItodoList {
-//     desc: string;
-//     category: any;
-//     content: string;
-// }

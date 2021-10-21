@@ -13,7 +13,7 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
     const { handleCheck } = useContext(TodoContext);
 
     return (
-        <tr>
+        <InputTodoTr>
             <th>
                 <input
                     onChange={() => handleCheck(todoItem.id, todoItem.checked)}
@@ -22,7 +22,7 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
                 />
             </th>
             <th>
-                <a href= {todoItem.content}>{todoItem.desc}</a>
+                <a href= {`/about/${todoItem.content}`}>{todoItem.desc}</a>
             </th>
             <th>{todoItem.category}</th>
             <th>{todoItem.content}</th>
@@ -31,7 +31,7 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
             }}>
                 Delete
             </DeleteButton>
-        </tr>
+        </InputTodoTr>
 )};
 
 const DeleteButton = styled.a`
@@ -39,4 +39,6 @@ const DeleteButton = styled.a`
     cursor: pointer;
     color: crimson;
 `
-
+const InputTodoTr = styled.tr`
+    border-bottom: 1px;
+`
