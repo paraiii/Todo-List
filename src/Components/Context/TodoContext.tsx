@@ -32,13 +32,13 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         setTodoList([...todoList, todo]);
     };
 
-    const removeTodo = useCallback ((id: string): void => {
+    const removeTodo = (id: string): void => {
         setTodoList (
             todoList.filter((item)=> {
                 return item.id !== id;
             })
         );
-    }, []);
+    };
     
     const handleCheck = useCallback ((id:string, checked: boolean) => {
         const modifiedTodoList = todoList.map((todoItem) => {
