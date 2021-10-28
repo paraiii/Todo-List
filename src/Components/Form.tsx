@@ -1,19 +1,12 @@
 import React, { ChangeEvent, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { TodoContext } from './Context/TodoContext';
-import { InputTodo } from './InputTodo';
-import { TodoList } from './TodoList';
-import { TodoItem } from './types';
 
 export const Form = () => {
-    const { todoList, addTodo, removeTodo } = useContext(TodoContext)
+    const { addTodo } = useContext(TodoContext)
     const [inputDesc, setInputDesc] = useState<string>('')
     const [inputCate, setInputCate] = useState<string>('')
     const [inputCont, setInputCont] = useState<string>('')
-    // const [todoList, setTodoList] = useState<TodoItem[]>([]);
-
-    const { handleDelete } = useContext(TodoContext);
 
     const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>): void => {
         setInputDesc(event.target.value)
@@ -35,25 +28,6 @@ export const Form = () => {
             checked: false,
         });
     }
-    // const value = useContext(TodoContext)
-
-
-    // const addTodo = (): void => {
-
-    //     const newTodo = { desc: inputDesc, category: inputCate, content: inputCont};
-    //     setTodoList([...todoList, newTodo]);
-    //     setInputDesc("");
-    //     setInputCate("");
-    //     setInputCont("");
-    // };
-
-    // const removeTodo = (descDelete: string): void => {
-    //     setTodoList (
-    //         todoList.filter((inputDesc)=> {
-    //             return inputDesc.desc != descDelete;
-    //         })
-    //     );
-    // };
     return (
         <div>
             <TodoListTitle>
@@ -105,12 +79,6 @@ export const Form = () => {
                             <AddButton onClick={onClick}>Add</AddButton>
                         </ButtonTh>
                     </tr>
-                    {/* <TodoListContainer>
-                        <button onClick={handleDelete}>Delete Select</button>
-                        {todoList.map((todoItem: TodoItem) => {
-                            return <InputTodo key={todoItem.id} todoItem={todoItem} removeTodo={removeTodo} />;
-                        })}
-                    </TodoListContainer> */}
                 </thead>
             </table>
         </div>

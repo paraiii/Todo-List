@@ -25,7 +25,6 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
                 <a href= {`/about/${todoItem.content}`}>{todoItem.desc}</a>
             </td>
             <td>{todoItem.category}</td>
-            {/* <td>{todoItem.content}</td> */}
             <DeleteButton onClick={() => {
                 removeTodo(todoItem.id);
             }}>

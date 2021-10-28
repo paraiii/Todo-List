@@ -11,7 +11,5 @@ export const About = () => {
 }
 
 const NavContainer = styled.div`
-    padding-left: 100px;
-    padding: 10px;
-    background-color:rgb(203, 219, 247);
+    
 `

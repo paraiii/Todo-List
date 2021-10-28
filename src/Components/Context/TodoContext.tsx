@@ -1,7 +1,5 @@
-import { ChangeEvent, createContext, useCallback, useState } from "react";
-import styled from "styled-components";
+import { createContext, useCallback, useState } from "react";
 import { TodoItem } from "../types";
-
 
 interface TodoContextProp {
     children: any;
@@ -27,9 +25,6 @@ export const TodoContext = createContext(initialValue);
 
 export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
-    // const [inputDesc, setInputDesc] = useState<string>('')
-    // const [inputCate, setInputCate] = useState<string>('')
-    // const [inputCont, setInputCont] = useState<string>('')
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
 
@@ -40,7 +35,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const removeTodo = (id: string): void => {
         setTodoList (
             todoList.filter((item)=> {
-                return item.id != id;
+                return item.id !== id;
             })
         );
     };
@@ -62,21 +57,13 @@ export const TodoContextProvider = (props: TodoContextProp) => {
 
     const values: TodoContextValue = {
         todoList: todoList,
-        // id:Math.floor(Math.random() * 1000),  //给todolist的事随机分配一个0-1000的数做id
-        // desc: inputDesc,
-        // category: inputCate,
-        // content: inputCont,
         addTodo: addTodo,
         removeTodo: removeTodo,
         handleCheck: handleCheck,
         handleDelete: handleDelete,
-    
     };
-    
-   
-        
+
     return (
-        // <TodoContext.Provider value={values}>
         <TodoContext.Provider value={values}>
             {children}
         </TodoContext.Provider>

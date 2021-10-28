@@ -7,8 +7,3 @@ export interface TodoItem {
 }
 
 
-// export interface ItodoList {
-//     desc: string;
-//     category: any;
-//     content: string;
-// }
