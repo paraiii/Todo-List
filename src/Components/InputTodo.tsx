@@ -32,7 +32,9 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
                 Delete
             </DeleteButton>
         </InputTodoTr>
-)};
+    );
+};
+
 
 const DeleteButton = styled.a`
     margin: 10px;
@@ -42,3 +44,5 @@ const DeleteButton = styled.a`
 const InputTodoTr = styled.tr`
     border-bottom: 1px;
 `
+
+

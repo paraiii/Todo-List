@@ -3,14 +3,15 @@ import styled from "styled-components";
 export const About = () => {
     return  (
         <div>
-            <AboutContainer>
-                <h1>About works!</h1>
-            </AboutContainer>
+            <NavContainer>
+                about works
+            </NavContainer>
         </div>
     )
 }
 
-const AboutContainer = styled.div`
+const NavContainer = styled.div`
     padding-left: 100px;
     padding: 10px;
+    background-color:rgb(203, 219, 247);
 `
