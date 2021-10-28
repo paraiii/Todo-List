@@ -11,7 +11,7 @@ function App() {
         <NavBar />
         <Route exact path="/todo" component={TodoPage} />
         <Route exact path="/" component={TodoPage} />
-        <Route exact path="/about" component={About} />
+        <Route exact path="/about/:id" component={About} />
       </div>
     </TodoContextProvider>
   );

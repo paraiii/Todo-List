@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useContext } from 'react';
+import React, { ChangeEvent, useState, useContext, useCallback } from 'react';
 import styled from "styled-components";
 import { TodoContext } from './Context/TodoContext';
 
@@ -8,15 +8,15 @@ export const Form = () => {
     const [inputCate, setInputCate] = useState<string>('')
     const [inputCont, setInputCont] = useState<string>('')
 
-    const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>): void => {
+    const handleChangeDesc = useCallback ((event: ChangeEvent<HTMLInputElement>): void => {
         setInputDesc(event.target.value)
-    };
-    const handleChangeCate= (event: ChangeEvent<HTMLSelectElement>): void => {
+    }, [])
+    const handleChangeCate= useCallback ((event: ChangeEvent<HTMLSelectElement>): void => {
         setInputCate(event.target.value)
-    };
-    const handleChangeCont = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    }, [])
+    const handleChangeCont = useCallback ((event: ChangeEvent<HTMLTextAreaElement>): void => {
         setInputCont(event.target.value)
-    };
+    }, [])
 
     const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -28,6 +28,7 @@ export const Form = () => {
             checked: false,
         });
     }
+    
     return (
         <div>
             <TodoListTitle>
