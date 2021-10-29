@@ -1,4 +1,4 @@
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { TodoItem } from "../types";
 
 interface TodoContextProp {
@@ -22,14 +22,21 @@ export const initialValue: TodoContextValue = {
 }
 
 export const TodoContext = createContext(initialValue);
-
+const KEY = "paraiii-todo-list";
 export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
-    const [todoList, setTodoList] = useState<TodoItem[]>([]);
+    const storage = window.localStorage;
+    const storedList = storage.getItem(KEY) || "[]"
+    const [todoList, setTodoList] = useState<TodoItem[]>(JSON.parse(storedList));
 
+
+    useEffect (() => {
+        storage.setItem(KEY, JSON.stringify(todoList));
+    }, [todoList])
 
     const addTodo = (todo: TodoItem): void => {
         setTodoList([...todoList, todo]);
+
     };
 
     const removeTodo = (id: string): void => {
