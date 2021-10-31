@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState, useContext, useCallback } from 'react';
 import styled from "styled-components";
+import { AddTodo } from './AddTodo';
 import { TodoContext } from './Context/TodoContext';
 
 export const Form = () => {
@@ -28,7 +29,7 @@ export const Form = () => {
             checked: false,
         });
     }
-    
+
     return (
         <div>
             <TodoListTitle>
@@ -77,7 +78,8 @@ export const Form = () => {
                     <tr>
                         <th></th>
                         <ButtonTh>
-                            <AddButton onClick={onClick}>Add</AddButton>
+                            {/* <AddButton onClick={onClick}>Add</AddButton> */}
+                            <AddTodo />
                         </ButtonTh>
                     </tr>
                 </thead>

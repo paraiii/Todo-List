@@ -1,4 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from "react";
+import { AddTask } from "../API/AddTask";
+import { GetAllTasks } from "../API/GetAllTasks";
 import { TodoItem } from "../types";
 
 interface TodoContextProp {
@@ -27,12 +29,24 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
     const storage = window.localStorage;
     const storedList = storage.getItem(KEY) || "[]"
-    const [todoList, setTodoList] = useState<TodoItem[]>(JSON.parse(storedList));
-
+    // const [todoList, setTodoList] = useState<TodoItem[]>(JSON.parse(storedList));
+    const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
     useEffect (() => {
-        storage.setItem(KEY, JSON.stringify(todoList));
+    //     storage.setItem(KEY, JSON.stringify(todoList));
+    // }, [todoList])
+        //每当todolist改变时，把东西存到storage里
+        // AddTask().then(res => {
+        //      setTodoList(res.data)
+        //      debugger
+        // })
+
+
+        GetAllTasks().then(res => {
+            setTodoList(res.data)
+       })
     }, [todoList])
+
 
     const addTodo = (todo: TodoItem): void => {
         setTodoList([...todoList, todo]);
