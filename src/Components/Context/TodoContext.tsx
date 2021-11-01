@@ -24,11 +24,11 @@ export const initialValue: TodoContextValue = {
 }
 
 export const TodoContext = createContext(initialValue);
-const KEY = "paraiii-todo-list";
+// const KEY = "paraiii-todo-list";
 export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
-    const storage = window.localStorage;
-    const storedList = storage.getItem(KEY) || "[]"
+    // const storage = window.localStorage;
+    // const storedList = storage.getItem(KEY) || "[]"
     // const [todoList, setTodoList] = useState<TodoItem[]>(JSON.parse(storedList));
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
@@ -36,17 +36,15 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     //     storage.setItem(KEY, JSON.stringify(todoList));
     // }, [todoList])
         //每当todolist改变时，把东西存到storage里
-        // AddTask().then(res => {
-        //      setTodoList(res.data)
-        //      debugger
-        // })
+        AddTask().then(res => {
+             setTodoList(res.data)
+             debugger
+        })
 
-
-        GetAllTasks().then(res => {
-            setTodoList(res.data)
-       })
-    }, [todoList])
-
+    //     GetAllTasks().then(res => {
+    //         setTodoList(res.data)
+    //    })
+    }, [todoList]);
 
     const addTodo = (todo: TodoItem): void => {
         setTodoList([...todoList, todo]);

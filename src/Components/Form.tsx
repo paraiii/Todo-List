@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState, useContext, useCallback } from 'react';
 import styled from "styled-components";
-import { AddTodo } from './AddTodo';
 import { TodoContext } from './Context/TodoContext';
 
 export const Form = () => {
@@ -78,8 +77,7 @@ export const Form = () => {
                     <tr>
                         <th></th>
                         <ButtonTh>
-                            {/* <AddButton onClick={onClick}>Add</AddButton> */}
-                            <AddTodo />
+                            <AddButton onClick={onClick}>Add</AddButton>
                         </ButtonTh>
                     </tr>
                 </thead>
