@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AddTask } from "../API/AddTask";
 import { GetAllTasks } from "../API/GetAllTasks";
-import { TodoItem } from "../types";
+import { TodoDto, TodoItem } from "../types";
 
 interface TodoContextProp {
     children: any;
@@ -36,19 +36,30 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     //     storage.setItem(KEY, JSON.stringify(todoList));
     // }, [todoList])
         //每当todolist改变时，把东西存到storage里
-        AddTask().then(res => {
-             setTodoList(res.data)
-             debugger
-        })
-
-    //     GetAllTasks().then(res => {
-    //         setTodoList(res.data)
-    //    })
-    }, [todoList]);
+        // AddTask().then(res => {
+        //     //  setTodoList(res.data)
+        //      addTodo(res.data.data) //data里有count和data两部分，不是一个obj
+        // })
+        GetAllTasks().then(res => {
+            const todoDtos = res.data.data;
+            const todoItems = todoDtos.map((todoDto: TodoDto) => {
+                const content: Partial<TodoItem> = JSON.parse(todoDto.description)
+                return { ...content,id: todoDto._id}
+            })
+            setTodoList(todoItems)
+       })
+    // }, [todoList]); //不能有这个dependency
+    }, []);
 
     const addTodo = (todo: TodoItem): void => {
-        setTodoList([...todoList, todo]);
+        const todoDto: Partial<TodoDto> = {
+            "description": JSON.stringify(todo)
+        }; 
 
+        AddTask(todoDto).then(res => { //点击button之后拿到response
+            todo.id = res.data.data._id
+            setTodoList([...todoList, todo]);
+        });
     };
 
     const removeTodo = (id: string): void => {
