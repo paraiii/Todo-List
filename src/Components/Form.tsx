@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { TodoContext } from './Context/TodoContext';
 
 export const Form = () => {
-    const { addTodo } = useContext(TodoContext)
+    const { addTodo, loading } = useContext(TodoContext)
     const [inputDesc, setInputDesc] = useState<string>('')
     const [inputCate, setInputCate] = useState<string>('')
     const [inputCont, setInputCont] = useState<string>('')
@@ -77,7 +77,7 @@ export const Form = () => {
                     <tr>
                         <th></th>
                         <ButtonTh>
-                            <AddButton onClick={onClick}>Add</AddButton>
+                            <AddButton onClick={onClick} disabled={loading}>Add</AddButton>
                         </ButtonTh>
                     </tr>
                 </thead>

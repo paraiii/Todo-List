@@ -1,5 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AddTask } from "../API/AddTask";
+import { DeleteTask } from "../API/DeleteTask";
 import { GetAllTasks } from "../API/GetAllTasks";
 import { TodoDto, TodoItem } from "../types";
 
@@ -10,6 +11,7 @@ interface TodoContextProp {
 
 export interface TodoContextValue {
     todoList: TodoItem[];
+    loading: boolean;
     addTodo: (todo: TodoItem) => void;
     removeTodo: (id: string) => void;
     handleCheck: (id: string, checked: boolean) => void;
@@ -17,6 +19,7 @@ export interface TodoContextValue {
 }
 export const initialValue: TodoContextValue = {
     todoList: [],
+    loading: false,
     addTodo: (todo:TodoItem)=>{},
     removeTodo: (id: string) => {},
     handleCheck: (id: string, checked: boolean) => {},
@@ -31,8 +34,10 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     // const storedList = storage.getItem(KEY) || "[]"
     // const [todoList, setTodoList] = useState<TodoItem[]>(JSON.parse(storedList));
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect (() => {
+        setLoading(true);
     //     storage.setItem(KEY, JSON.stringify(todoList));
     // }, [todoList])
         //每当todolist改变时，把东西存到storage里
@@ -41,6 +46,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         //      addTodo(res.data.data) //data里有count和data两部分，不是一个obj
         // })
         GetAllTasks().then(res => {
+            setLoading(false);
             const todoDtos = res.data.data;
             const todoItems = todoDtos.map((todoDto: TodoDto) => {
                 const content: Partial<TodoItem> = JSON.parse(todoDto.description)
@@ -55,20 +61,24 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         const todoDto: Partial<TodoDto> = {
             "description": JSON.stringify(todo)
         }; 
-
+        setLoading(true);
         AddTask(todoDto).then(res => { //点击button之后拿到response
+            setLoading(false);
             todo.id = res.data.data._id
             setTodoList([...todoList, todo]);
         });
     };
 
     const removeTodo = (id: string): void => {
-        setTodoList (
-            todoList.filter((item)=> {
-                return item.id !== id;
-            })
-        );
+        DeleteTask(id).then(res => {
+            setTodoList (
+                todoList.filter((item)=> {
+                    return item.id !== id;
+                })
+            );
+        })
     };
+
     
     const handleCheck = useCallback ((id:string, checked: boolean) => {
         const modifiedTodoList = todoList.map((todoItem) => {
@@ -88,6 +98,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
 
     const values: TodoContextValue = {
         todoList: todoList,
+        loading: loading,
         addTodo: addTodo,
         removeTodo: removeTodo,
         handleCheck: handleCheck,
