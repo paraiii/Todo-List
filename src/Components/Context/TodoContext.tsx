@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from "react";
+import { useSnackbar } from 'notistack';
 import { AddTask } from "../API/AddTask";
 import { DeleteTask } from "../API/DeleteTask";
 import { GetAllTasks } from "../API/GetAllTasks";
@@ -28,13 +29,14 @@ export const initialValue: TodoContextValue = {
 
 export const TodoContext = createContext(initialValue);
 // const KEY = "paraiii-todo-list";
+
 export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
     // const storage = window.localStorage;
     // const storedList = storage.getItem(KEY) || "[]"
     // const [todoList, setTodoList] = useState<TodoItem[]>(JSON.parse(storedList));
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);      
 
     useEffect (() => {
         setLoading(true);
@@ -56,6 +58,10 @@ export const TodoContextProvider = (props: TodoContextProp) => {
        })
     // }, [todoList]); //不能有这个dependency
     }, []);
+    const buttons = [
+        { message: 'Successfully done the operation.' },
+    ];
+    const { enqueueSnackbar } = useSnackbar();
 
     const addTodo = (todo: TodoItem): void => {
         const todoDto: Partial<TodoDto> = {
@@ -66,9 +72,19 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             setLoading(false);
             todo.id = res.data.data._id
             setTodoList([...todoList, todo]);
-        });
-    };
 
+        const popUp = (button: any) => () => {
+            debugger 
+            enqueueSnackbar(button.message);
+            return (buttons.map((button) => {
+                <button onClick={popUp(button)}>
+                    <button>success</button>
+                </button>
+            }))
+        }
+        });
+    };  
+    
     const removeTodo = (id: string): void => {
         DeleteTask(id).then(res => {
             setTodoList (
@@ -79,6 +95,15 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         })
     };
 
+    // const removeTodos = (ids: string): void => {
+    //     Promise.all(
+    //         ids.map(id => DeleteTask(id))
+    //     ).then ((values) =>{
+    //         console.log(values);
+    //     }
+            
+    //     )
+    // }
     
     const handleCheck = useCallback ((id:string, checked: boolean) => {
         const modifiedTodoList = todoList.map((todoItem) => {

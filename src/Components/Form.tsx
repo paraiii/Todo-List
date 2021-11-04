@@ -1,13 +1,15 @@
+import { useSnackbar } from 'notistack';
 import React, { ChangeEvent, useState, useContext, useCallback } from 'react';
 import styled from "styled-components";
 import { TodoContext } from './Context/TodoContext';
+import { PopUpButton } from './PopUpButton';
 
 export const Form = () => {
     const { addTodo, loading } = useContext(TodoContext)
     const [inputDesc, setInputDesc] = useState<string>('')
     const [inputCate, setInputCate] = useState<string>('')
     const [inputCont, setInputCont] = useState<string>('')
-
+    
     const handleChangeDesc = useCallback ((event: ChangeEvent<HTMLInputElement>): void => {
         setInputDesc(event.target.value)
     }, [])
@@ -18,16 +20,38 @@ export const Form = () => {
         setInputCont(event.target.value)
     }, [])
 
-    const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+    // const addClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //     event.preventDefault();
+    //     addTodo({
+    //         id: Date.now().toString(), //现在的时间戳
+    //         desc: inputDesc,
+    //         category: inputCate,
+    //         content: inputCont,
+    //         checked: false,
+    //     });    
+    // }
+    const addClick = (button: any) => {
+        const buttons = [
+            enqueueSnackbar('Successfully done the operation.' ),
+        ];
+    
         addTodo({
             id: Date.now().toString(), //现在的时间戳
             desc: inputDesc,
             category: inputCate,
             content: inputCont,
             checked: false,
-        });
+        });    
+        return (
+            buttons.map((button) => (
+            <PopButton onClick={addClick}>
+            </PopButton>
+         )))
+         //还不能先loading再popup
     }
+
+    
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <div>
@@ -77,8 +101,19 @@ export const Form = () => {
                     <tr>
                         <th></th>
                         <ButtonTh>
-                            <AddButton onClick={onClick} disabled={loading}>Add</AddButton>
+                            <AddButton 
+                                onClick= {addClick} 
+                                disabled={loading}>
+                                    Add
+                            </AddButton>
+                            {/* <PopUpButton /> */}
+                            <div>
+                                {/* {buttons.map((button) => {
+                                    return <AddButton onClick= {addClick} disabled={loading}>Add</AddButton>
+                                })} */}
+                            </div>
                         </ButtonTh>
+
                     </tr>
                 </thead>
             </table>
@@ -94,6 +129,8 @@ const FormTh = styled.th`
 `
 const ButtonTh = styled.th`
     text-align: right;
+`
+const PopButton = styled.th`
 `
 const AddButton = styled.button`
     background-color: orange;
