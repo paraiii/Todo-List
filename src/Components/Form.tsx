@@ -2,13 +2,13 @@ import { useSnackbar } from 'notistack';
 import React, { ChangeEvent, useState, useContext, useCallback } from 'react';
 import styled from "styled-components";
 import { TodoContext } from './Context/TodoContext';
-import { PopUpButton } from './PopUpButton';
 
 export const Form = () => {
     const { addTodo, loading } = useContext(TodoContext)
     const [inputDesc, setInputDesc] = useState<string>('')
     const [inputCate, setInputCate] = useState<string>('')
     const [inputCont, setInputCont] = useState<string>('')
+    const { enqueueSnackbar } = useSnackbar();
     
     const handleChangeDesc = useCallback ((event: ChangeEvent<HTMLInputElement>): void => {
         setInputDesc(event.target.value)
@@ -34,7 +34,6 @@ export const Form = () => {
         const buttons = [
             enqueueSnackbar('Successfully done the operation.' ),
         ];
-    
         addTodo({
             id: Date.now().toString(), //现在的时间戳
             desc: inputDesc,
@@ -47,11 +46,8 @@ export const Form = () => {
             <PopButton onClick={addClick}>
             </PopButton>
          )))
-         //还不能先loading再popup
+        //还不能先loading再popup
     }
-
-    
-    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <div>
@@ -106,12 +102,6 @@ export const Form = () => {
                                 disabled={loading}>
                                     Add
                             </AddButton>
-                            {/* <PopUpButton /> */}
-                            <div>
-                                {/* {buttons.map((button) => {
-                                    return <AddButton onClick= {addClick} disabled={loading}>Add</AddButton>
-                                })} */}
-                            </div>
                         </ButtonTh>
 
                     </tr>

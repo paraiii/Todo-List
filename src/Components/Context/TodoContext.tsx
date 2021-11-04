@@ -58,10 +58,6 @@ export const TodoContextProvider = (props: TodoContextProp) => {
        })
     // }, [todoList]); //不能有这个dependency
     }, []);
-    const buttons = [
-        { message: 'Successfully done the operation.' },
-    ];
-    const { enqueueSnackbar } = useSnackbar();
 
     const addTodo = (todo: TodoItem): void => {
         const todoDto: Partial<TodoDto> = {
@@ -72,16 +68,6 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             setLoading(false);
             todo.id = res.data.data._id
             setTodoList([...todoList, todo]);
-
-        const popUp = (button: any) => () => {
-            debugger 
-            enqueueSnackbar(button.message);
-            return (buttons.map((button) => {
-                <button onClick={popUp(button)}>
-                    <button>success</button>
-                </button>
-            }))
-        }
         });
     };  
     
@@ -114,6 +100,19 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         });
         setTodoList(modifiedTodoList);
     }, [todoList]);
+
+    const [checked, setChecked] = useState();
+    const todoCompleted = () => {
+        const onChangeCheck = (event: any) => {
+            setChecked(event.target.checked);
+        }
+        return (
+            <input
+            checked={checked}
+            onChange={onChangeCheck}
+          />)
+
+    }
 
     const handleDelete = useCallback (() => {
         const filteredTodoList = todoList.filter((todoItem) => todoItem.checked === false);

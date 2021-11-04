@@ -20,11 +20,11 @@ export const TodoList = () => {
                     <HeaderItem>Operate</HeaderItem>
                 </tr>
             </thead>
-            <tbody>
+            <StyledBody>
                 {todoList.map((todoItem: TodoItem) => {
                     return <InputTodo key={todoItem.id} todoItem={todoItem} removeTodo={removeTodo} />;
                 })}
-            </tbody>
+            </StyledBody>
         </ListTable>
     );
 }
@@ -35,3 +35,10 @@ const ListTable = styled.div`
 const HeaderItem = styled.th`
     padding: 10px;
 `
+const StyledBody = styled.tbody`
+    cursor: pointer;
+`
+
+function useActions(): { todoCompleted: any; } {
+    throw new Error("Function not implemented.");
+}
