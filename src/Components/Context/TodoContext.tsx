@@ -35,7 +35,8 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
     const [loading, setLoading] = useState<boolean>(false);      
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
+    // const { authenticated, setAuthenticated} = useState(false);
     
     useEffect (() => {
         setLoading(true);
