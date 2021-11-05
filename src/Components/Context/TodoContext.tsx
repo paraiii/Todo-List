@@ -1,5 +1,5 @@
+import { useSnackbar } from "notistack";
 import { createContext, useCallback, useEffect, useState } from "react";
-import { useSnackbar } from 'notistack';
 import { AddTask } from "../API/AddTask";
 import { DeleteTask } from "../API/DeleteTask";
 import { GetAllTasks } from "../API/GetAllTasks";
@@ -16,6 +16,7 @@ export interface TodoContextValue {
     addTodo: (todo: TodoItem) => void;
     removeTodo: (id: string) => void;
     handleCheck: (id: string, checked: boolean) => void;
+    todoCompleted: (id: string, done: boolean) => void;
     handleDelete: () => void;
 }
 export const initialValue: TodoContextValue = {
@@ -24,35 +25,26 @@ export const initialValue: TodoContextValue = {
     addTodo: (todo:TodoItem)=>{},
     removeTodo: (id: string) => {},
     handleCheck: (id: string, checked: boolean) => {},
+    todoCompleted: (id: string, done: boolean) => {},
     handleDelete: () => {},
 }
 
 export const TodoContext = createContext(initialValue);
-// const KEY = "paraiii-todo-list";
 
 export const TodoContextProvider = (props: TodoContextProp) => {
     const {children} = props;    
-    // const storage = window.localStorage;
-    // const storedList = storage.getItem(KEY) || "[]"
-    // const [todoList, setTodoList] = useState<TodoItem[]>(JSON.parse(storedList));
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
     const [loading, setLoading] = useState<boolean>(false);      
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    
     useEffect (() => {
         setLoading(true);
-    //     storage.setItem(KEY, JSON.stringify(todoList));
-    // }, [todoList])
-        //每当todolist改变时，把东西存到storage里
-        // AddTask().then(res => {
-        //     //  setTodoList(res.data)
-        //      addTodo(res.data.data) //data里有count和data两部分，不是一个obj
-        // })
         GetAllTasks().then(res => {
             setLoading(false);
             const todoDtos = res.data.data;
             const todoItems = todoDtos.map((todoDto: TodoDto) => {
                 const content: Partial<TodoItem> = JSON.parse(todoDto.description)
-                return { ...content,id: todoDto._id}
+                return { ...content, id: todoDto._id}
             })
             setTodoList(todoItems)
        })
@@ -68,6 +60,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             setLoading(false);
             todo.id = res.data.data._id
             setTodoList([...todoList, todo]);
+            enqueueSnackbar('Successfully done the operation.' )            
         });
     };  
     
@@ -80,16 +73,6 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             );
         })
     };
-
-    // const removeTodos = (ids: string): void => {
-    //     Promise.all(
-    //         ids.map(id => DeleteTask(id))
-    //     ).then ((values) =>{
-    //         console.log(values);
-    //     }
-            
-    //     )
-    // }
     
     const handleCheck = useCallback ((id:string, checked: boolean) => {
         const modifiedTodoList = todoList.map((todoItem) => {
@@ -101,22 +84,18 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         setTodoList(modifiedTodoList);
     }, [todoList]);
 
-    const [checked, setChecked] = useState();
-    const todoCompleted = () => {
-        const onChangeCheck = (event: any) => {
-            setChecked(event.target.checked);
-        }
-        return (
-            <input
-            checked={checked}
-            onChange={onChangeCheck}
-          />)
-
-    }
+    const todoCompleted = (id: string, done: boolean): void => {
+        const setList = todoList.map((todoItem)=> {
+            if (todoItem.id === id) {
+                todoItem.done = !todoItem.done;
+            }
+            return todoItem;
+        });   
+        setTodoList(setList);
+    };
 
     const handleDelete = useCallback (() => {
         const filteredTodoList = todoList.filter((todoItem) => todoItem.checked === false);
-        debugger
         setTodoList(filteredTodoList);
     }, [todoList]);
 
@@ -126,6 +105,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         addTodo: addTodo,
         removeTodo: removeTodo,
         handleCheck: handleCheck,
+        todoCompleted: todoCompleted,
         handleDelete: handleDelete,
     };
 
@@ -134,5 +114,9 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             {children}
         </TodoContext.Provider>
     );
+}
+
+function enqueueSnackbar(arg0: string) {
+    throw new Error("Function not implemented.");
 }
 

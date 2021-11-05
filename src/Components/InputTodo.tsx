@@ -1,3 +1,4 @@
+
 import { useContext } from "react";
 import styled from "styled-components";
 import { TodoContext } from "./Context/TodoContext";
@@ -10,38 +11,68 @@ interface Props {
 }
 
 export const InputTodo = ({ todoItem, removeTodo}: Props) => {
-    const { handleCheck } = useContext(TodoContext);
+    const { handleCheck, todoCompleted } = useContext(TodoContext);
 
     return (
-        <InputTodoTr>
-            <th>
-                <input
-                    onChange={() => handleCheck(todoItem.id, todoItem.checked)}
-                    type="checkbox"
-                    checked={todoItem.checked}
-                />
-            </th>
-            <td>
-                <a href= {`/todo/${todoItem.id}`}>{todoItem.desc}</a>
-            </td>
-            <td>{todoItem.category}</td>
-            <DeleteButton onClick={() => {
-                removeTodo(todoItem.id);
-            }}>
-                Delete
-            </DeleteButton>
-        </InputTodoTr>
+        <div>
+            {todoItem.done ? (
+                <tr>
+                <TodoCompletedContainer onClick={() => todoCompleted(todoItem.id, todoItem.done)}>
+                    <th>
+                        <input
+                            onChange={() => handleCheck(todoItem.id, todoItem.checked)}
+                            type="checkbox"
+                            checked={todoItem.checked}
+                        />
+                    </th>
+                    <td>
+                        <a href= {`/todo/${todoItem.id}`}>{todoItem.desc}</a>
+                    </td>
+                    <td>{todoItem.category}</td>
+                    <DeleteButton onClick={() => {
+                        removeTodo(todoItem.id);
+                    }}>
+                        Delete
+                    </DeleteButton>
+                </TodoCompletedContainer>
+                </tr>
+            ): (
+                <tr>
+                <InputTodoContainer onClick={() => todoCompleted(todoItem.id, todoItem.done)}>
+                    <th>
+                        <input
+                            onChange={() => handleCheck(todoItem.id, todoItem.checked)}
+                            type="checkbox"
+                            checked={todoItem.checked}
+                        />
+                    </th>
+                    <td>
+                        <a href= {`/todo/${todoItem.id}`}>{todoItem.desc}</a>
+                    </td>
+                    <td>{todoItem.category}</td>
+                    <DeleteButton onClick={() => {
+                        removeTodo(todoItem.id);
+                    }}>
+                        Delete
+                    </DeleteButton>
+                </InputTodoContainer>
+                </tr>
+            )}
+        </div>
     );
 };
 
 
-const DeleteButton = styled.a`
+const InputTodoContainer = styled.tr`
+    color: black;
+`
+const TodoCompletedContainer = styled.div`
+    color: grey;
+    text-decoration: line-through;
+`
+const DeleteButton = styled.div`
     margin: 10px;
     cursor: pointer;
     color: crimson;
 `
-const InputTodoTr = styled.tr`
-    border-bottom: 1px;
-`
-
 

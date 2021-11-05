@@ -5,7 +5,8 @@ export interface TodoItem {
     category: string;
     content: string;
 
-    checked: any;
+    checked: boolean;
+    done: boolean;
 }
 
 
@@ -14,5 +15,5 @@ export interface TodoDto {
 
     description: string;
 
-    completed: boolean;
+    completed: string;
 }

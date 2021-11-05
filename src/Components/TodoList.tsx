@@ -39,6 +39,4 @@ const StyledBody = styled.tbody`
     cursor: pointer;
 `
 
-function useActions(): { todoCompleted: any; } {
-    throw new Error("Function not implemented.");
-}
+

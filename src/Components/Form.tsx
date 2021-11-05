@@ -20,33 +20,16 @@ export const Form = () => {
         setInputCont(event.target.value)
     }, [])
 
-    // const addClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     event.preventDefault();
-    //     addTodo({
-    //         id: Date.now().toString(), //现在的时间戳
-    //         desc: inputDesc,
-    //         category: inputCate,
-    //         content: inputCont,
-    //         checked: false,
-    //     });    
-    // }
     const addClick = (button: any) => {
-        const buttons = [
-            enqueueSnackbar('Successfully done the operation.' ),
-        ];
         addTodo({
             id: Date.now().toString(), //现在的时间戳
             desc: inputDesc,
             category: inputCate,
             content: inputCont,
             checked: false,
-        });    
-        return (
-            buttons.map((button) => (
-            <PopButton onClick={addClick}>
-            </PopButton>
-         )))
-        //还不能先loading再popup
+            done: false,
+        });   
+        
     }
 
     return (

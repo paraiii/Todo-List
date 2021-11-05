@@ -12,14 +12,6 @@ export const TodoContent = () => {
     const { todoList } = useContext (TodoContext);
     const [todoContent, setTodoContent] = useState<TodoItem>();
 
-    // useEffect (
-    //     function() {
-    //         TodoContent(id).then(res => {
-    //             setTodoContent(res.data);
-    //         });
-    //     }
-    // );
-
     useEffect (() => {
         const todo = todoList.find((todo) => todo.id === id)
         setTodoContent(todo);

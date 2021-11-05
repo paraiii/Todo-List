@@ -10,8 +10,5 @@ export const AddTask = (data: Partial<TodoDto>) => {
             Authorization : `Bearer ${token}`
         },
         data: data //data必须是个string
-        // data: {
-        //     // description: JSON.stringify(data),
-        // }
     });
 }
