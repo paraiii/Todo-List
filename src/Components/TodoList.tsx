@@ -1,12 +1,18 @@
 import { useContext } from "react";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import {TodoContext} from './Context/TodoContext';
 import { InputTodo } from "./InputTodo";
+import { LoginPage } from "./LoginPage";
 import { TodoItem } from "./types";
 
 export const TodoList = () => {
-    const { todoList, removeTodo } = useContext(TodoContext);
+    const { todoList, removeTodo, authenticated } = useContext(TodoContext);
     const { handleDelete } = useContext(TodoContext);
+
+    if (!authenticated) {
+        return <Redirect to= "/login" />
+    }
 
     return (
         <ListTable>

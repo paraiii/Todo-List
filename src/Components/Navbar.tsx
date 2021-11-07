@@ -3,8 +3,10 @@ import styled from "styled-components";
 export const NavBar = () => {
     return  (
         <NavContainer>
-                <Nav href= "/todo">todo</Nav>
-                <Nav href= "/about">about</Nav>
+                <Nav href= "/todo">Todo</Nav>
+                <Nav href= "/about">About</Nav>
+                <Nav href= "/login">Login</Nav>
+                <Nav href= "/register">Register</Nav>
         </NavContainer>
     )
 }

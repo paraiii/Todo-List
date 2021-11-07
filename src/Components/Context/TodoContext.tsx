@@ -4,6 +4,7 @@ import { AddTask } from "../API/AddTask";
 import { DeleteTask } from "../API/DeleteTask";
 import { GetAllTasks } from "../API/GetAllTasks";
 import { TodoDto, TodoItem } from "../types";
+import {UserLogin} from "../API/UserLogin";
 
 interface TodoContextProp {
     children: any;
@@ -13,20 +14,24 @@ interface TodoContextProp {
 export interface TodoContextValue {
     todoList: TodoItem[];
     loading: boolean;
+    login: (data: {username: string, password: string}) => void;
     addTodo: (todo: TodoItem) => void;
     removeTodo: (id: string) => void;
     handleCheck: (id: string, checked: boolean) => void;
     todoCompleted: (id: string, done: boolean) => void;
     handleDelete: () => void;
+    authenticated: boolean;
 }
 export const initialValue: TodoContextValue = {
     todoList: [],
     loading: false,
+    login: (data: {username: string, password: string}) => {},
     addTodo: (todo:TodoItem)=>{},
     removeTodo: (id: string) => {},
     handleCheck: (id: string, checked: boolean) => {},
     todoCompleted: (id: string, done: boolean) => {},
     handleDelete: () => {},
+    authenticated: false,
 }
 
 export const TodoContext = createContext(initialValue);
@@ -36,7 +41,14 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const [todoList, setTodoList] = useState<TodoItem[]>([]);
     const [loading, setLoading] = useState<boolean>(false);      
     const { enqueueSnackbar } = useSnackbar();
-    // const { authenticated, setAuthenticated} = useState(false);
+    const [authenticated, setAuthenticated] = useState(false);
+
+    useEffect (() => {
+        const value = window.localStorage.getItem("prefix-token")
+        if (value) {
+            setAuthenticated(true)
+        }
+    }, [])
     
     useEffect (() => {
         setLoading(true);
@@ -75,6 +87,14 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         })
     };
     
+    const Login = (data: any): void => {
+        UserLogin (data).then(res => {
+            window.localStorage.setItem("prefix-token", res.data);
+            setAuthenticated(res.data);
+        })
+
+    ;}
+
     const handleCheck = useCallback ((id:string, checked: boolean) => {
         const modifiedTodoList = todoList.map((todoItem) => {
           if (todoItem.id === id) {
@@ -103,11 +123,13 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const values: TodoContextValue = {
         todoList: todoList,
         loading: loading,
+        login: Login,
         addTodo: addTodo,
         removeTodo: removeTodo,
         handleCheck: handleCheck,
         todoCompleted: todoCompleted,
         handleDelete: handleDelete,
+        authenticated: authenticated,
     };
 
     return (
@@ -117,7 +139,5 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     );
 }
 
-function enqueueSnackbar(arg0: string) {
-    throw new Error("Function not implemented.");
-}
+
 
