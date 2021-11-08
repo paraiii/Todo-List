@@ -19,22 +19,22 @@ export const RegisterPage: React.FC = () => {
         formState: { errors } 
     } = useForm<Inputs>();
 
-    const {registerUser, authenticated } = useContext(TodoContext);
+    const { registerUser, registerState } = useContext(TodoContext);
 
     const onSubmit = (data: any) => {
         console.log(data);
         registerUser(data);
     };
-    // if (authenticated) {
-    //     return <Redirect to="/" />
-    // }
+   
+    if (registerState === "OK") {
+        return <Redirect to="/" />
+    }
 
     return (
-        <RegisterContainer>
+        <RegisterContainer onSubmit={handleSubmit(onSubmit)}>
             <RegisterHeader>
                 Register your account
             </RegisterHeader>
-            <form onSubmit={handleSubmit(onSubmit)}>
                 <RegisterText>Name</RegisterText>
                 <Input placeholder= "Enter your name"{...register("name")} />
                 <RegisterText>Email</RegisterText>
@@ -47,7 +47,8 @@ export const RegisterPage: React.FC = () => {
                 <ButtonContainer>
                     <ButtonInput type="submit" />
                 </ButtonContainer>
-            </form>
+                {registerState === "IN_PROGRESS" && (<text>Registering ...</text>)}
+                {registerState === "FAIL" && (<text>Error ...</text>)}
         </RegisterContainer>
     );
 }

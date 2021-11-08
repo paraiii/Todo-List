@@ -11,10 +11,12 @@ interface TodoContextProp {
     children: any;
     value: TodoContextValue;
 }
+type RegisterState = "" | "IN_PROGRESS" | "OK" | "FAIL";
 
 export interface TodoContextValue {
     todoList: TodoItem[];
     loading: boolean;
+    registerState: RegisterState,
     login: (data: {username: string, password: string}) => void;
     registerUser: (data: {name: string, username: string, password: string}) => void;
     addTodo: (todo: TodoItem) => void;
@@ -27,6 +29,7 @@ export interface TodoContextValue {
 export const initialValue: TodoContextValue = {
     todoList: [],
     loading: false,
+    registerState: "",
     login: (data: {username: string, password: string}) => {},
     registerUser: (data: {name: string, username: string, password: string}) => {},
     addTodo: (todo:TodoItem)=>{},
@@ -45,7 +48,8 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const [loading, setLoading] = useState<boolean>(false);      
     const { enqueueSnackbar } = useSnackbar();
     const [authenticated, setAuthenticated] = useState(false);
-    
+    const [registerState, setRegisterState] = useState<RegisterState>("");
+
     useEffect (() => {
         const value = window.localStorage.getItem("prefix-token")
         if (value) {
@@ -54,6 +58,9 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     }, [])
     
     useEffect (() => {
+        if (!authenticated) {
+            return;
+        }
         setLoading(true);
         GetAllTasks().then(res => {
             setLoading(false);
@@ -65,7 +72,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             setTodoList(todoItems)
        })
     // }, [todoList]); //不能有这个dependency
-    }, []);
+    }, [authenticated]);
 
     const addTodo = (todo: TodoItem): void => {
         const todoDto: Partial<TodoDto> = {
@@ -89,10 +96,13 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             );
         })
     };
-    
+
     const Register = (data: any): void => {
+        setRegisterState("IN_PROGRESS")
         RegisterUser (data).then(res => {
             window.localStorage.setItem("prefix-token", res.data.token);
+            setRegisterState("OK");
+            setAuthenticated(true)
             console.log(Response);
         })
     ;}
@@ -132,6 +142,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const values: TodoContextValue = {
         todoList: todoList,
         loading: loading,
+        registerState: registerState,
         login: Login,
         registerUser: Register,
         addTodo: addTodo,

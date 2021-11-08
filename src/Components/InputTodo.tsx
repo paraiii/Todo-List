@@ -31,6 +31,9 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
             }}>
                 Delete
             </DeleteButton>
+            <CompleteButton>
+                Completed
+            </CompleteButton>
         </InputTodoContainer>            
     );
 };
@@ -42,9 +45,13 @@ const InputTodoContainer = styled.tr<StyledProps>`
     color: ${props=> props.done ? "grey": "black"};
     text-decoration: ${props => props.done ?  "line-through" : "none"};
 `
-const DeleteButton = styled.div`
+const DeleteButton = styled.td`
     margin: 10px;
     cursor: pointer;
     color: crimson;
 `
 
+const CompleteButton = styled.td`
+    margin: 10px;
+    color: crimson;
+`
