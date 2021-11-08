@@ -5,6 +5,8 @@ import { DeleteTask } from "../API/DeleteTask";
 import { GetAllTasks } from "../API/GetAllTasks";
 import { TodoDto, TodoItem } from "../types";
 import {UserLogin} from "../API/UserLogin";
+import { RegisterUser } from "../API/RegisterUser";
+import { convertCompilerOptionsFromJson } from "typescript";
 
 interface TodoContextProp {
     children: any;
@@ -15,6 +17,7 @@ export interface TodoContextValue {
     todoList: TodoItem[];
     loading: boolean;
     login: (data: {username: string, password: string}) => void;
+    registerUser: (data: {name: string, username: string, password: string}) => void;
     addTodo: (todo: TodoItem) => void;
     removeTodo: (id: string) => void;
     handleCheck: (id: string, checked: boolean) => void;
@@ -26,6 +29,7 @@ export const initialValue: TodoContextValue = {
     todoList: [],
     loading: false,
     login: (data: {username: string, password: string}) => {},
+    registerUser: (data: {name: string, username: string, password: string}) => {},
     addTodo: (todo:TodoItem)=>{},
     removeTodo: (id: string) => {},
     handleCheck: (id: string, checked: boolean) => {},
@@ -42,7 +46,8 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const [loading, setLoading] = useState<boolean>(false);      
     const { enqueueSnackbar } = useSnackbar();
     const [authenticated, setAuthenticated] = useState(false);
-
+    const [resStatus, setResStatus] = useState("");
+    
     useEffect (() => {
         const value = window.localStorage.getItem("prefix-token")
         if (value) {
@@ -86,13 +91,18 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             );
         })
     };
-    
+    const Register = (data: any): void => {
+        RegisterUser (data).then(res => {
+            window.localStorage.setItem("prefix-token", res.data.token);
+            console.log(Response);
+        })
+    ;}
+
     const Login = (data: any): void => {
         UserLogin (data).then(res => {
-            window.localStorage.setItem("prefix-token", res.data);
-            setAuthenticated(res.data);
+            window.localStorage.setItem("prefix-token", res.data.token);
+            setAuthenticated(true);
         })
-
     ;}
 
     const handleCheck = useCallback ((id:string, checked: boolean) => {
@@ -124,6 +134,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
         todoList: todoList,
         loading: loading,
         login: Login,
+        registerUser: Register,
         addTodo: addTodo,
         removeTodo: removeTodo,
         handleCheck: handleCheck,

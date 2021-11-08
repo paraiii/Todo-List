@@ -1,4 +1,3 @@
-import { useSnackbar } from 'notistack';
 import React, { ChangeEvent, useState, useContext, useCallback } from 'react';
 import styled from "styled-components";
 import { TodoContext } from './Context/TodoContext';
@@ -8,7 +7,6 @@ export const Form = () => {
     const [inputDesc, setInputDesc] = useState<string>('')
     const [inputCate, setInputCate] = useState<string>('')
     const [inputCont, setInputCont] = useState<string>('')
-    const { enqueueSnackbar } = useSnackbar();
     
     const handleChangeDesc = useCallback ((event: ChangeEvent<HTMLInputElement>): void => {
         setInputDesc(event.target.value)
@@ -29,7 +27,6 @@ export const Form = () => {
             checked: false,
             done: false,
         });   
-        
     }
 
     return (

@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import {TodoContext} from './Context/TodoContext';
 import { InputTodo } from "./InputTodo";
-import { LoginPage } from "./LoginPage";
 import { TodoItem } from "./types";
 
 export const TodoList = () => {

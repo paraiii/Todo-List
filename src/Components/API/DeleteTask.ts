@@ -6,7 +6,7 @@ export const DeleteTask = (id: string) => {
         method: "delete",
         url: `https://api-nodejs-todolist.herokuapp.com/task/${id}`,
         headers: {
-            Authorization : `Bearer ${token}`
+            Authorization : `Bearer ${token()}`
         },
     });
 }

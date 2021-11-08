@@ -4,9 +4,10 @@ export const NavBar = () => {
     return  (
         <NavContainer>
                 <Nav href= "/todo">Todo</Nav>
-                <Nav href= "/about">About</Nav>
-                <Nav href= "/login">Login</Nav>
-                <Nav href= "/register">Register</Nav>
+                <LoginContainer>
+                    <Nav href= "/login">Login</Nav>
+                    <Nav href= "/register">Register</Nav>
+                </LoginContainer>
         </NavContainer>
     )
 }
@@ -20,5 +21,7 @@ const NavContainer = styled.div`
 const Nav = styled.a`
     padding: 10px;
     text-decoration: none;
-
+`
+const LoginContainer = styled.a`
+    float: right;
 `

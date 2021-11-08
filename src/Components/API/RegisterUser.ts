@@ -1,12 +1,19 @@
 import axios from 'axios';
+import { token } from './config';
 
-export const RegisterUser = () => {
+interface RegisterData {
+    name: string;
+    username: string;
+    password: string;
+    age: number;
+}
+export const RegisterUser = (data: RegisterData) => {
     return axios({
         method: "post",
         url: "https://api-nodejs-todolist.herokuapp.com/user/register",
-        data: {
-            email: "zhangbingxin324@gmail.com",
-            password: "12345678",
-        }
+        headers: {
+            Authorization : `Bearer ${token()}`
+        },
+        data: data
     });
 }
