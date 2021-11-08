@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import { NumericLiteral } from "typescript";
 import { TodoContext } from "./Context/TodoContext";
 
 type Inputs = {

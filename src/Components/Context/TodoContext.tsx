@@ -6,7 +6,6 @@ import { GetAllTasks } from "../API/GetAllTasks";
 import { TodoDto, TodoItem } from "../types";
 import {UserLogin} from "../API/UserLogin";
 import { RegisterUser } from "../API/RegisterUser";
-import { convertCompilerOptionsFromJson } from "typescript";
 
 interface TodoContextProp {
     children: any;
@@ -46,7 +45,6 @@ export const TodoContextProvider = (props: TodoContextProp) => {
     const [loading, setLoading] = useState<boolean>(false);      
     const { enqueueSnackbar } = useSnackbar();
     const [authenticated, setAuthenticated] = useState(false);
-    const [resStatus, setResStatus] = useState("");
     
     useEffect (() => {
         const value = window.localStorage.getItem("prefix-token")
@@ -91,6 +89,7 @@ export const TodoContextProvider = (props: TodoContextProp) => {
             );
         })
     };
+    
     const Register = (data: any): void => {
         RegisterUser (data).then(res => {
             window.localStorage.setItem("prefix-token", res.data.token);

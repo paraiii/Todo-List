@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import { TodoContext } from "./Context/TodoContext";

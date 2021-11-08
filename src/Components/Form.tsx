@@ -100,8 +100,6 @@ const FormTh = styled.th`
 const ButtonTh = styled.th`
     text-align: right;
 `
-const PopButton = styled.th`
-`
 const AddButton = styled.button`
     background-color: orange;
     color: white;
