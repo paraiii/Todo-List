@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { TodoDto } from '../types';
-import { token } from './config';
+import { config, token } from './config';
 
 export const AddTask = (data: Partial<TodoDto>) => {
     return axios({
         method: "post",
-        url: "https://api-nodejs-todolist.herokuapp.com/task",
+        // url: "https://api-nodejs-todolist.herokuapp.com/task",
+        url: `${config["baseUrl"]}/task`,
         headers: {
             Authorization : `Bearer ${token()}`
         },

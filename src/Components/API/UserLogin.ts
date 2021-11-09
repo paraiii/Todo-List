@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { token } from './config';
+import { config, token } from './config';
 
 interface LoginData {
     username: string;
@@ -9,7 +9,8 @@ interface LoginData {
 export const UserLogin = (data: LoginData) => {
     return axios({
         method: "post",
-        url: "https://api-nodejs-todolist.herokuapp.com/user/login",
+        // url: "https://api-nodejs-todolist.herokuapp.com/user/login",
+        url: `${config["baseUrl"]}/user/login`,
         headers: {
             Authorization : `Bearer ${token()}`
         },
