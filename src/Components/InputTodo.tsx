@@ -1,9 +1,7 @@
-
 import { useContext } from "react";
 import styled from "styled-components";
 import { TodoContext } from "./Context/TodoContext";
 import { TodoItem } from "./types";
-
 
 interface Props {
     todoItem: TodoItem;
