@@ -30,75 +30,94 @@ export const Form = () => {
     }
 
     return (
-        <div>
-            <TodoListTitle>
-                <h1>Start Add Todo's</h1>
-            </TodoListTitle>
+        <TableContainer>
             <table> 
-                <thead>
+            <TodoListTitle>
+                <a>Start Add Todo's</a>
+            </TodoListTitle>
+
+                <Thead>
                     <FormTr>
                         <FormTh> Description: </FormTh>
-                        <FormTh>
-                            <input 
-                                type='text'
-                                name='text'
-                                value={inputDesc}
-                                className='todo-input'
-                                onChange={handleChangeDesc}
-                            />
-                        </FormTh>
+                        <FormInput>
+                            <th>
+                                <input 
+                                    type='text'
+                                    name='text'
+                                    value={inputDesc}
+                                    className='todo-input'
+                                    onChange={handleChangeDesc}
+                                />
+                            </th>
+                        </FormInput>
                     </FormTr>
                     <FormTr>
                         <FormTh>Category:</FormTh>
-                        <FormTh>
-                            <select
-                                value={inputCate}
-                                name='category'
-                                className='todo-input'
-                                onChange={handleChangeCate}
-                            >
-                                <option value=""></option>
-                                <option value="CSS">CSS</option>
-                                <option value="JS">JS</option>
-                            </select>
-                        </FormTh>
+                        <FormInput>
+                            <th>
+                                <select
+                                    value={inputCate}
+                                    name='category'
+                                    onChange={handleChangeCate}
+                                >
+                                    <option value=""></option>
+                                    <option value="CSS">CSS</option>
+                                    <option value="JS">JS</option>
+                                </select>
+                            </th>
+                        </FormInput>
                     </FormTr>
                     <FormTr>
                         <FormTh>Content:</FormTh>
-                        <FormTh>
+                        <FormInput>
                             <textarea 
                                 value={inputCont}
                                 name='category'
-                                className='todo-input'
                                 onChange={handleChangeCont}
                             />
-                        </FormTh>
+                        </FormInput>
                     </FormTr>
                     <tr>
                         <th></th>
                         <ButtonTh>
-                            <AddButton 
-                                onClick= {addClick} 
-                                disabled={loading}>
+                            <a href="./todo">
+                                <AddButton 
+                                    onClick= {addClick} 
+                                    disabled={loading}
+                                >
                                     Add
-                            </AddButton>
+                                </AddButton>
+                            </a>
                         </ButtonTh>
-
                     </tr>
-                </thead>
+                </Thead>
             </table>
-        </div>
+        </TableContainer>
     );
 }
 
+const TableContainer = styled.div`
+    display: flex;
+    justify-content: center;
+`
+const Thead = styled.thead`
+    display: inline-flex;
+    flex-direction: column;
+`
 const FormTr = styled.tr`
     text-align: left;
-`
-const FormTh = styled.th`
     padding: 10px;
 `
-const ButtonTh = styled.th`
+const FormTh = styled.th`
+    flex-direction: row;
+    align-self: right;
+`
+const FormInput = styled.div`
+    justify-content: flex-end;
+`
+const ButtonTh = styled.a`
     text-align: right;
+    margin: 0 10px;
 `
 const AddButton = styled.button`
     background-color: orange;
@@ -107,7 +126,9 @@ const AddButton = styled.button`
 `
 const TodoListTitle = styled.div`
     text-align: center;
-    
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px;
 `
 
 
