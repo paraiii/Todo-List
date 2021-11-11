@@ -31,9 +31,9 @@ export const InputTodo = ({ todoItem, removeTodo}: Props) => {
             }}>
                 Delete
             </DeleteButton>
-            <CompleteButton>
+            {/* <CompleteButton>
                 Completed
-            </CompleteButton>
+            </CompleteButton> */}
         </InputTodoContainer>            
     );
 };

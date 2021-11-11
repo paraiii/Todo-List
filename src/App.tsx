@@ -6,6 +6,7 @@ import { initialValue, TodoContextProvider } from "./Components/Context/TodoCont
 import { TodoContent } from "./Components/TodoContent";
 import {LoginPage } from "./Components/LoginPage";
 import { RegisterPage } from "./Components/RegisterPage";
+import { Form } from "./Components/Form";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/todo/:id" component={TodoContent} />
+          <Route exact path="/form" component={Form} />
         </div>
       </TodoContextProvider>
     </SnackbarProvider>

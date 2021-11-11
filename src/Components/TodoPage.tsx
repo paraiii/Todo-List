@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 import styled from "styled-components";
 import { TodoContext } from "./Context/TodoContext";
@@ -10,7 +11,7 @@ export const TodoPage = () => {
     return  (
         <div>
             <TodoPageContainer>
-                <Form />
+                {/* <Form /> */}
                 <TodoList />
                 { loading && <Loading />}
             </TodoPageContainer>
