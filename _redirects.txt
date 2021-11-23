@@ -1,8 +1,1 @@
-
-/             
-/todo
-/login 
-/register
-/todo/:id           
-/form
-
+/* /index.html 200
