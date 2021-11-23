@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {TodoContext} from './Context/TodoContext';
-import { InputTodo } from "./InputTodo";
 import { TodoItem } from "./types";
 import React from 'react';
 import Table from '@material-ui/core/Table';
@@ -13,7 +11,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button, Typography } from "@material-ui/core";
 import { Form } from "./Form";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -63,14 +60,14 @@ export const TodoList = () => {
                 </TableHead>
                 <TableBody >
                     {todoList.map((todoItem: TodoItem) => (
-                        // <InputTodoContainer done={todoItem.done} onClick={() => todoCompleted(todoItem.id, todoItem.done)}>
+                        // <InputTodoContainer done={todoItem.done}>
                         <TableRow key={todoItem.id}>
                             <TableCell align="center">
-                                
                                 <input
-                                    onChange={() => handleCheck(todoItem.id, todoItem.checked)}
+                                    onChange={() => todoCompleted(todoItem.id, todoItem.done)}
                                     type="checkbox"
-                                    checked={todoItem.checked}
+                                    checked={todoItem.done}
+                                    // onClick={() => todoCompleted(todoItem.id, todoItem.done)}
                                 />
                             </TableCell>
                             <TableCell align="center" >
@@ -82,7 +79,7 @@ export const TodoList = () => {
                                     removeTodo(todoItem.id);}}>Delete</button>
                             </TableCell>
                         </TableRow>
-                        // </InputTodoContainer> 
+                        //</InputTodoContainer> 
                     ))}
                 </TableBody>
             </Table>

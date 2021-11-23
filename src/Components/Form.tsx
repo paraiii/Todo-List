@@ -33,7 +33,7 @@ export const Form = () => {
         <TableContainer>
             <table> 
             <TodoListTitle>
-                <a>Start Add Todo's</a>
+                <text>Start Add Todo's</text>
             </TodoListTitle>
 
                 <Thead>
@@ -80,14 +80,12 @@ export const Form = () => {
                     <tr>
                         <th></th>
                         <ButtonTh>
-                            <a href="./todo">
                                 <AddButton 
                                     onClick= {addClick} 
                                     disabled={loading}
                                 >
                                     Add
                                 </AddButton>
-                            </a>
                         </ButtonTh>
                     </tr>
                 </Thead>
