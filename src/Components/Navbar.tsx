@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const NavBar = () =>  {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 

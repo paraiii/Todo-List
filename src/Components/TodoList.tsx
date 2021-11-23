@@ -12,7 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Form } from "./Form";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles({
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   
 export const TodoList = () => {
     const classes = useStyles();
-    const { todoList, removeTodo, authenticated, handleCheck, todoCompleted } = useContext(TodoContext);
+    const { todoList, removeTodo, authenticated, todoCompleted } = useContext(TodoContext);
     const [open, setOpen] = React.useState(false);
   
     const handleOpen = () => {
@@ -60,14 +60,12 @@ export const TodoList = () => {
                 </TableHead>
                 <TableBody >
                     {todoList.map((todoItem: TodoItem) => (
-                        // <InputTodoContainer done={todoItem.done}>
                         <TableRow key={todoItem.id}>
                             <TableCell align="center">
                                 <input
                                     onChange={() => todoCompleted(todoItem.id, todoItem.done)}
                                     type="checkbox"
                                     checked={todoItem.done}
-                                    // onClick={() => todoCompleted(todoItem.id, todoItem.done)}
                                 />
                             </TableCell>
                             <TableCell align="center" >
@@ -79,7 +77,6 @@ export const TodoList = () => {
                                     removeTodo(todoItem.id);}}>Delete</button>
                             </TableCell>
                         </TableRow>
-                        //</InputTodoContainer> 
                     ))}
                 </TableBody>
             </Table>
@@ -95,19 +92,12 @@ export const TodoList = () => {
             </TableContainer>
     );
 }
-interface StyledProps {
-    done: boolean
-}
 
 const TableTitle = styled.div`
     text-align: center;
     front-size: 28px;
     font-weight: bold;
     padding: 10px;
-`
-const InputTodoContainer = styled.tr<StyledProps>`
-    color: ${props=> props.done ? "grey": "black"};
-    text-decoration: ${props => props.done ?  "line-through" : "none"};
 `
 const AddButton = styled.div`
     margin: 10px;
