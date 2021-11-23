@@ -1,5 +1,8 @@
 
-/             /task
-/task/${id}  /blog/my-post
-/user/register              /user/login
+/             
+/task
+/task/${id}  
+/blog/my-post
+/user/register             
+/user/login
 https://stupefied-feynman-9321f7.netlify.app
